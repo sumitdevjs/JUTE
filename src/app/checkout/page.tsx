@@ -7,10 +7,43 @@ import { useCart } from "@/context/CartContext";
 import styles from "./checkout.module.css";
 
 export default function Checkout() {
-  const { cart, cartTotal, clearCart } = useCart();
+  const { cart, cartTotal, clearCart, addToCart } = useCart();
   const [paymentMethod, setPaymentMethod] = useState<"card" | "upi" | "cod">("card");
   const [isPlaced, setIsPlaced] = useState(false);
   const [orderId, setOrderId] = useState("");
+  const [isLocal, setIsLocal] = useState<boolean | null>(null);
+
+  // Security check: Only allow localhost access, block live production users
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      const isLocalhost =
+        window.location.hostname === "localhost" ||
+        window.location.hostname === "127.0.0.1" ||
+        window.location.hostname.endsWith(".local");
+      setIsLocal(isLocalhost);
+      if (!isLocalhost) {
+        // Redirect to shop if someone accesses this on public production URL
+        window.location.replace("/shop");
+      }
+    }
+  }, []);
+
+  const handleLoadSampleItems = () => {
+    addToCart({
+      id: "prod-botanical-floral-canvas-set",
+      name: "Botanical Floral Garden Canvas Tote Bags (Set of 4)",
+      price: 299,
+      image: "/botanical_floral_canvas_tote.jpg",
+      category: "Tote Bags",
+    });
+    addToCart({
+      id: "prod-eco-friendly-leaves-tote",
+      name: "Eco Friendly Botanical Leaves Jute Tote Bag",
+      price: 199,
+      image: "/eco_friendly_leaves_jute_bag.jpg",
+      category: "Tote Bags",
+    });
+  };
   
   // Form values
   const [formData, setFormData] = useState({
@@ -48,6 +81,11 @@ export default function Checkout() {
   const shipping = cartTotal > 1000 ? 0 : 150;
   const finalTotal = cartTotal + shipping;
 
+  // Block live public access
+  if (isLocal === false) {
+    return null;
+  }
+
   if (isPlaced) {
     return (
       <section className="section-padding">
@@ -58,7 +96,7 @@ export default function Checkout() {
             </div>
             <h1 className={styles.successTitle}>Order Placed!</h1>
             <p className={styles.successDesc}>
-              Thank you for choosing GoldenFiber. Your organic jute products are being compiled by the artisans.
+              Thank you for choosing Ashok Enterprises. Your organic jute products are being compiled by the artisans.
             </p>
 
             <div className={styles.receipt}>
@@ -113,11 +151,40 @@ export default function Checkout() {
   if (cart.length === 0) {
     return (
       <section className="section-padding" style={{ minHeight: "60vh", display: "flex", alignItems: "center" }}>
-        <div className="container" style={{ textAlign: "center" }}>
-          <h2 style={{ fontFamily: "var(--font-serif)", fontSize: "2rem", marginBottom: "16px" }}>Your Basket is Empty</h2>
-          <p style={{ opacity: 0.8, marginBottom: "24px" }}>Please add some premium jute products to your cart before checking out.</p>
-          <Link href="/shop" className={styles.homeBtn}>
-            Go to Shop
+        <div className="container" style={{ textAlign: "center", maxWidth: "560px", margin: "0 auto" }}>
+          <div style={{ background: "#f0fdf4", border: "1px solid #bbf7d0", borderRadius: "16px", padding: "28px 24px", marginBottom: "24px", boxShadow: "0 4px 16px rgba(34, 197, 94, 0.08)" }}>
+            <span style={{ fontSize: "0.8rem", fontWeight: "700", color: "#15803d", textTransform: "uppercase", letterSpacing: "1px" }}>
+              🔒 Local Owner / Developer Mode
+            </span>
+            <h2 style={{ fontFamily: "var(--font-serif)", fontSize: "1.6rem", margin: "10px 0 8px", color: "#14532d" }}>
+              Checkout Page (Local Access Only)
+            </h2>
+            <p style={{ opacity: 0.85, fontSize: "0.92rem", marginBottom: "20px", lineHeight: "1.5" }}>
+              Yeh page sirf aapke local environment (localhost) par khulega. Live site par visitors ko ye access nahi hoga.
+            </p>
+            <button
+              onClick={handleLoadSampleItems}
+              style={{
+                background: "var(--primary)",
+                color: "white",
+                padding: "12px 24px",
+                borderRadius: "9999px",
+                fontWeight: "700",
+                fontSize: "0.95rem",
+                border: "none",
+                cursor: "pointer",
+                boxShadow: "0 4px 12px rgba(46, 90, 39, 0.25)",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px"
+              }}
+            >
+              ⚡ Load Sample Products to Test Checkout
+            </button>
+          </div>
+
+          <Link href="/shop" className={styles.homeBtn} style={{ opacity: 0.8 }}>
+            Back to Shop
           </Link>
         </div>
       </section>
@@ -127,8 +194,41 @@ export default function Checkout() {
   return (
     <section className={`${styles.checkoutPage} section-padding`}>
       <div className="container">
+        {/* Local Developer Mode Notice */}
+        <div style={{
+          background: "#f0fdf4",
+          border: "1px solid #bbf7d0",
+          borderRadius: "10px",
+          padding: "10px 18px",
+          marginBottom: "20px",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexWrap: "wrap",
+          gap: "10px",
+          fontSize: "0.85rem"
+        }}>
+          <span style={{ color: "#15803d", fontWeight: "600" }}>
+            🔒 Local Owner Mode: Checkout is active on localhost only.
+          </span>
+          <div style={{ display: "flex", gap: "10px" }}>
+            <button
+              onClick={handleLoadSampleItems}
+              style={{ background: "#dcfce7", color: "#15803d", border: "1px solid #86efac", padding: "4px 12px", borderRadius: "6px", cursor: "pointer", fontWeight: "600", fontSize: "0.8rem" }}
+            >
+              + Add Sample Product
+            </button>
+            <button
+              onClick={clearCart}
+              style={{ background: "#fee2e2", color: "#b91c1c", border: "1px solid #fca5a5", padding: "4px 12px", borderRadius: "6px", cursor: "pointer", fontWeight: "600", fontSize: "0.8rem" }}
+            >
+              Clear Cart
+            </button>
+          </div>
+        </div>
+
         {/* Navigation Breadcrumb */}
-        <div style={{ marginBottom: "32px" }}>
+        <div style={{ marginBottom: "24px" }}>
           <Link href="/shop" style={{ display: "inline-flex", alignItems: "center", gap: "8px", fontWeight: "600", color: "var(--primary)" }}>
             <ArrowLeft size={16} /> Continue Shopping
           </Link>

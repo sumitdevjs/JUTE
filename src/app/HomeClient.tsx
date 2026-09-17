@@ -1215,7 +1215,6 @@ export default function HomeClient() {
                   <img
                     src={activeImage || enquiryProduct.image}
                     alt={enquiryProduct.name}
-                    style={{ width: "100%", height: "100%", objectFit: "contain", padding: "10px" }}
                   />
                 </div>
                 {enquiryProduct.images && enquiryProduct.images.length > 1 && (
@@ -1230,7 +1229,6 @@ export default function HomeClient() {
                         <img
                           src={imgUrl}
                           alt={`${enquiryProduct.name} thumbnail`}
-                          style={{ width: "100%", height: "100%", objectFit: "contain", padding: "2px" }}
                         />
                       </button>
                     ))}
@@ -1274,7 +1272,7 @@ export default function HomeClient() {
                       href="tel:+919968648541"
                       className={styles.contactPhoneBtn}
                     >
-                      <Phone size={16} /> Call: +91 99686 48541
+                      <Phone size={16} /> Call: 99686 48541
                     </a>
                     <a
                       href={`https://wa.me/919968648541?text=Hi,%20I%20am%20interested%20in%20ordering%20"${enquiryProduct.name}"%20(Price:%20₹${enquiryProduct.price})`}
