@@ -620,7 +620,7 @@ export default function HomeClient() {
               </button>
 
               <div className={styles.featuredGrid} ref={artisanalScrollRef}>
-                {filteredProducts.slice(0, 12).map((product) => (
+                {filteredProducts.slice(0, 16).map((product) => (
                   <div
                     key={product.id}
                     className={styles.productCardClean}

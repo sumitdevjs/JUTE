@@ -53,6 +53,7 @@ const SidebarCart: React.FC = () => {
         className={`${styles.sidebar} ${isCartOpen ? styles.sidebarOpen : ""}`}
         aria-modal="true"
         role="dialog"
+        data-lenis-prevent
       >
         <div className={styles.cartHeader}>
           <h2>Your Cart</h2>

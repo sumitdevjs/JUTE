@@ -15,6 +15,48 @@ export interface Product {
 
 export const PRODUCTS: Product[] = [
   {
+    id: "prod-eco-friendly-leaves-tote",
+    name: "Eco Friendly Botanical Leaves Jute Tote Bag",
+    price: 199,
+    category: "Tote Bags",
+    rating: 4.9,
+    reviews: 84,
+    image: "/eco_friendly_leaves_jute_bag.jpg",
+    images: ["/eco_friendly_leaves_jute_bag.jpg"],
+    description: "An inspiring eco-conscious jute tote bag featuring an artistic 'ECO FRIENDLY' center crest framed by lush tropical foliage, monstera leaves, ferns, and delicate butterfly motifs. Designed with padded cotton rope handles, reinforced side gussets printed with green flora, and a sturdy water-resistant interior lining. Ideal for groceries, college, office, and sustainable living.",
+    origin: "West Bengal, India",
+    material: "100% Organic Golden Jute, Cotton Rope Handles, Water-Resistant Inner Lining",
+    dimensions: "36cm x 38cm x 12cm"
+  },
+  {
+    id: "prod-blooming-lotus-tote",
+    name: "Blooming Lotus Watercolor Art Jute Tote Bag",
+    price: 199,
+    category: "Tote Bags",
+    rating: 4.9,
+    reviews: 102,
+    image: "/blooming_lotus_jute_bag.jpg",
+    images: ["/blooming_lotus_jute_bag.jpg"],
+    description: "An exquisite artisanal jute tote bag showcasing vibrant hand-painted style watercolor pink and white lotus blooms emerging from lush aquatic greenery. Accented with matching floral prints on the side gussets and heavy-duty soft white cotton rope handles. Spacious, stylish, and perfect for pooja, festive gifting, daily market shopping, or casual outings.",
+    origin: "West Bengal, India",
+    material: "Premium Bleached Jute Canvas, Cotton Rope Handles, Eco-Friendly Pigments",
+    dimensions: "35cm x 40cm x 12cm"
+  },
+  {
+    id: "prod-botanical-floral-canvas-set",
+    name: "Botanical Floral Garden Canvas Tote Bags (Set of 4)",
+    price: 299,
+    category: "Tote Bags",
+    rating: 4.9,
+    reviews: 114,
+    image: "/botanical_floral_canvas_tote.jpg",
+    images: ["/botanical_floral_canvas_tote.jpg"],
+    description: "A charming 4-piece collection of lightweight botanical floral cotton canvas tote bags in four vibrant hues: Ruby Red, Tangerine Orange, Emerald Green, and Royal Purple. Features intricate Scandinavian-inspired hand-drawn floral sketches with long shoulder straps. Perfect for book lovers, daily shopping, beach days, and versatile eco-friendly gifting.",
+    origin: "West Bengal, India",
+    material: "100% Cotton Canvas & Bleached Jute Blend, Reinforced Shoulder Straps",
+    dimensions: "35cm x 40cm"
+  },
+  {
     id: "prod-tropical-palm-tote",
     name: "Tropical Palm Leaf Jute Tote Bag",
     price: 199,

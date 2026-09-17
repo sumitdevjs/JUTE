@@ -10,6 +10,7 @@ import SidebarCart from "@/components/SidebarCart";
 import FloatingContact from "@/components/FloatingContact";
 import { CartProvider } from "@/context/CartContext";
 import { OrganizationJsonLd, LocalBusinessJsonLd, WebSiteJsonLd } from "@/components/JsonLd";
+import SmoothScroll from "@/components/SmoothScroll";
 import Script from "next/script";
 
 const BASE_URL = "https://jute-ashok-enterprises.vercel.app";
@@ -163,11 +164,13 @@ export default function RootLayout({
         />
         <WebSiteJsonLd name="Ashok Enterprises" url={BASE_URL} />
         <CartProvider>
-          <Navbar />
-          <SidebarCart />
-          <FloatingContact />
-          <main style={{ flex: 1 }}>{children}</main>
-          <Footer />
+          <SmoothScroll>
+            <Navbar />
+            <SidebarCart />
+            <FloatingContact />
+            <main style={{ flex: 1 }}>{children}</main>
+            <Footer />
+          </SmoothScroll>
         </CartProvider>
         <Analytics />
         <SpeedInsights />
