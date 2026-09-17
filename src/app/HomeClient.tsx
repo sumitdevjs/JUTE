@@ -1215,7 +1215,7 @@ export default function HomeClient() {
                   <img
                     src={activeImage || enquiryProduct.image}
                     alt={enquiryProduct.name}
-                    style={{ width: "100%", height: "100%", objectFit: "contain", padding: "16px" }}
+                    style={{ width: "100%", height: "100%", objectFit: "contain", padding: "10px" }}
                   />
                 </div>
                 {enquiryProduct.images && enquiryProduct.images.length > 1 && (
@@ -1230,7 +1230,7 @@ export default function HomeClient() {
                         <img
                           src={imgUrl}
                           alt={`${enquiryProduct.name} thumbnail`}
-                          style={{ width: "100%", height: "100%", objectFit: "contain", padding: "4px" }}
+                          style={{ width: "100%", height: "100%", objectFit: "contain", padding: "2px" }}
                         />
                       </button>
                     ))}
@@ -1239,56 +1239,42 @@ export default function HomeClient() {
               </div>
 
               <div className={styles.modalInfo}>
-                <span className={styles.cardCategory} style={{ fontSize: "0.8rem" }}>
+                <span className={styles.modalCategoryBadge}>
                   {enquiryProduct.category}
                 </span>
                 <h2 className={styles.modalTitle}>{enquiryProduct.name}</h2>
-                <div className={styles.rating}>
+                <div className={styles.modalRatingRow}>
                   <span className={styles.stars}>
                     {"★".repeat(Math.floor(enquiryProduct.rating))}
                   </span>
                   <span>
-                    {enquiryProduct.rating} ({enquiryProduct.reviews} Verified Buyer Reviews)
+                    {enquiryProduct.rating} ({enquiryProduct.reviews} Verified Reviews)
                   </span>
                 </div>
+
                 <p className={styles.modalDesc}>{enquiryProduct.description}</p>
 
-                {/* Specs */}
-                <table className={styles.specTable}>
-                  <tbody>
-                    <tr>
-                      <td className={styles.specLabel}>Sourced From</td>
-                      <td>{enquiryProduct.origin}</td>
-                    </tr>
-                    <tr>
-                      <td className={styles.specLabel}>Material Base</td>
-                      <td>{enquiryProduct.material}</td>
-                    </tr>
-                    <tr>
-                      <td className={styles.specLabel}>Average Size</td>
-                      <td>{enquiryProduct.dimensions}</td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div className={styles.modalBadges}>
+                  <span className={styles.modalBadge}>🌿 {enquiryProduct.material.split(",")[0]}</span>
+                  <span className={styles.modalBadge}>📍 {enquiryProduct.origin}</span>
+                  <span className={styles.modalBadge}>📏 {enquiryProduct.dimensions}</span>
+                </div>
 
-                <div className={styles.modalPriceRow} style={{ flexDirection: "column", alignItems: "stretch", gap: "16px" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
-                    <span className={styles.modalPrice} style={{ margin: 0 }}>
-                      <span className={styles.originalPriceLg}>₹{enquiryProduct.price === 99 ? 299 : (enquiryProduct.price === 199 ? 399 : 999)}</span>
-                      ₹{enquiryProduct.price.toLocaleString("en-IN")}
-                      <span className={styles.discountBadgeLg}>
-                        {Math.round((((enquiryProduct.price === 99 ? 299 : (enquiryProduct.price === 199 ? 399 : 999)) - enquiryProduct.price) / (enquiryProduct.price === 99 ? 299 : (enquiryProduct.price === 199 ? 399 : 999))) * 100)}% OFF
-                      </span>
+                <div className={styles.modalPriceRow}>
+                  <div className={styles.modalPriceGroup}>
+                    <span className={styles.modalPrice}>₹{enquiryProduct.price.toLocaleString("en-IN")}</span>
+                    <span className={styles.originalPriceLg}>₹{enquiryProduct.price === 99 ? 299 : (enquiryProduct.price === 199 ? 399 : 999)}</span>
+                    <span className={styles.discountBadgeLg}>
+                      {Math.round((((enquiryProduct.price === 99 ? 299 : (enquiryProduct.price === 199 ? 399 : 999)) - enquiryProduct.price) / (enquiryProduct.price === 99 ? 299 : (enquiryProduct.price === 199 ? 399 : 999))) * 100)}% OFF
                     </span>
-                    <span style={{ fontSize: "0.85rem", opacity: 0.8 }}>Direct Order Price</span>
                   </div>
 
-                  <div style={{ display: "flex", flexDirection: "column", gap: "10px", width: "100%" }}>
+                  <div className={styles.modalActionButtons}>
                     <a
                       href="tel:+919968648541"
                       className={styles.contactPhoneBtn}
                     >
-                      <Phone size={18} /> Call: +91 99686 48541
+                      <Phone size={16} /> Call: +91 99686 48541
                     </a>
                     <a
                       href={`https://wa.me/919968648541?text=Hi,%20I%20am%20interested%20in%20ordering%20"${enquiryProduct.name}"%20(Price:%20₹${enquiryProduct.price})`}
@@ -1296,7 +1282,7 @@ export default function HomeClient() {
                       rel="noopener noreferrer"
                       className={styles.contactWhatsappBtn}
                     >
-                      <MessageCircle size={18} /> WhatsApp: +91 99686 48541
+                      <MessageCircle size={16} /> WhatsApp Order
                     </a>
                   </div>
                 </div>

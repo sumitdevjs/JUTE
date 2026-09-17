@@ -225,7 +225,7 @@ export default function ShopClient() {
                   <img
                     src={activeImage || selectedProduct.image}
                     alt={selectedProduct.name}
-                    style={{ width: "100%", height: "100%", objectFit: "contain", padding: "16px" }}
+                    style={{ width: "100%", height: "100%", objectFit: "contain", padding: "10px" }}
                   />
                 </div>
                 {selectedProduct.images && selectedProduct.images.length > 1 && (
@@ -241,7 +241,7 @@ export default function ShopClient() {
                         <img
                           src={imgUrl}
                           alt={`${selectedProduct.name} thumbnail`}
-                          style={{ width: "100%", height: "100%", objectFit: "contain", padding: "4px" }}
+                          style={{ width: "100%", height: "100%", objectFit: "contain", padding: "2px" }}
                         />
                       </button>
                     ))}
@@ -249,57 +249,42 @@ export default function ShopClient() {
                 )}
               </div>
               <div className={styles.modalInfo}>
-                <span className={styles.cardCategory} style={{ fontSize: "0.8rem" }}>
+                <span className={styles.modalCategoryBadge}>
                   {selectedProduct.category}
                 </span>
                 <h2 className={styles.modalTitle}>{selectedProduct.name}</h2>
-                <div className={styles.rating}>
+                <div className={styles.modalRatingRow}>
                   <span className={styles.stars}>
                     {"★".repeat(Math.floor(selectedProduct.rating))}
                   </span>
                   <span>
-                    {selectedProduct.rating} ({selectedProduct.reviews} Verified Buyer Reviews)
+                    {selectedProduct.rating} ({selectedProduct.reviews} Verified Reviews)
                   </span>
                 </div>
 
                 <p className={styles.modalDesc}>{selectedProduct.description}</p>
 
-                {/* Specs */}
-                <table className={styles.specTable}>
-                  <tbody>
-                    <tr>
-                      <td className={styles.specLabel}>Sourced From</td>
-                      <td>{selectedProduct.origin}</td>
-                    </tr>
-                    <tr>
-                      <td className={styles.specLabel}>Material Base</td>
-                      <td>{selectedProduct.material}</td>
-                    </tr>
-                    <tr>
-                      <td className={styles.specLabel}>Average Size</td>
-                      <td>{selectedProduct.dimensions}</td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div className={styles.modalBadges}>
+                  <span className={styles.modalBadge}>🌿 {selectedProduct.material.split(",")[0]}</span>
+                  <span className={styles.modalBadge}>📍 {selectedProduct.origin}</span>
+                  <span className={styles.modalBadge}>📏 {selectedProduct.dimensions}</span>
+                </div>
 
-                <div className={styles.modalPriceRow} style={{ flexDirection: "column", alignItems: "stretch", gap: "16px" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
-                    <span className={styles.modalPrice} style={{ margin: 0 }}>
-                      <span className={styles.originalPriceLg}>₹{selectedProduct.price === 99 ? 299 : (selectedProduct.price === 199 ? 399 : 999)}</span>
-                      ₹{selectedProduct.price.toLocaleString("en-IN")}
-                      <span className={styles.discountBadgeLg}>
-                        {Math.round((((selectedProduct.price === 99 ? 299 : (selectedProduct.price === 199 ? 399 : 999)) - selectedProduct.price) / (selectedProduct.price === 99 ? 299 : (selectedProduct.price === 199 ? 399 : 999))) * 100)}% OFF
-                      </span>
+                <div className={styles.modalPriceRow}>
+                  <div className={styles.modalPriceGroup}>
+                    <span className={styles.modalPrice}>₹{selectedProduct.price.toLocaleString("en-IN")}</span>
+                    <span className={styles.originalPriceLg}>₹{selectedProduct.price === 99 ? 299 : (selectedProduct.price === 199 ? 399 : 999)}</span>
+                    <span className={styles.discountBadgeLg}>
+                      {Math.round((((selectedProduct.price === 99 ? 299 : (selectedProduct.price === 199 ? 399 : 999)) - selectedProduct.price) / (selectedProduct.price === 99 ? 299 : (selectedProduct.price === 199 ? 399 : 999))) * 100)}% OFF
                     </span>
-                    <span style={{ fontSize: "0.85rem", opacity: 0.8 }}>Direct Order Price</span>
                   </div>
                   
-                  <div style={{ display: "flex", flexDirection: "column", gap: "10px", width: "100%" }}>
+                  <div className={styles.modalActionButtons}>
                     <a
                       href="tel:+919968648541"
                       className={styles.contactPhoneBtn}
                     >
-                      <Phone size={18} /> Call: +91 99686 48541
+                      <Phone size={16} /> Call: +91 99686 48541
                     </a>
                     <a
                       href={`https://wa.me/919968648541?text=Hi,%20I%20am%20interested%20in%20ordering%20"${selectedProduct.name}"%20(Price:%20₹${selectedProduct.price})`}
@@ -307,7 +292,7 @@ export default function ShopClient() {
                       rel="noopener noreferrer"
                       className={styles.contactWhatsappBtn}
                     >
-                      <MessageCircle size={18} /> WhatsApp: +91 99686 48541
+                      <MessageCircle size={16} /> WhatsApp Order
                     </a>
                   </div>
                 </div>
