@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Phone, MessageCircle, MessageSquare, X } from "lucide-react";
+import { trackWhatsAppClick, trackPhoneClick } from "@/lib/gtag";
 import styles from "./FloatingContact.module.css";
 
 const FloatingContact: React.FC = () => {
@@ -20,7 +21,10 @@ const FloatingContact: React.FC = () => {
           target="_blank"
           rel="noopener noreferrer"
           className={styles.optionItem}
-          onClick={() => setIsOpen(false)}
+          onClick={() => {
+            trackWhatsAppClick("Floating Contact Widget");
+            setIsOpen(false);
+          }}
         >
           <span className={`${styles.iconWrapper} ${styles.whatsappBg}`}>
             <MessageCircle size={18} />
@@ -31,7 +35,10 @@ const FloatingContact: React.FC = () => {
         <a
           href={`tel:${phoneNumber}`}
           className={styles.optionItem}
-          onClick={() => setIsOpen(false)}
+          onClick={() => {
+            trackPhoneClick("Floating Contact Widget");
+            setIsOpen(false);
+          }}
         >
           <span className={`${styles.iconWrapper} ${styles.phoneBg}`}>
             <Phone size={18} />

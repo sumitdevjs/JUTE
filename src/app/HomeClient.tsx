@@ -28,6 +28,7 @@ import {
   Zap,
 } from "lucide-react";
 import styles from "./page.module.css";
+import { trackWhatsAppClick, trackPhoneClick, trackQuoteSubmission } from "@/lib/gtag";
 
 import { PRODUCTS as ALL_PRODUCTS, FEATURED_CURING_PRODUCTS, type Product } from "../data/products";
 
@@ -938,6 +939,14 @@ export default function HomeClient() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className={styles.wovenWhatsappBtn}
+                    onClick={() =>
+                      trackQuoteSubmission("Home Woven Bag Calculator", {
+                        packs: wovenCalculations.packsNeeded,
+                        total_bags: wovenCalculations.totalBags,
+                        target_kg: wovenTargetKg,
+                        total_cost: wovenCalculations.totalCost,
+                      })
+                    }
                   >
                     <MessageCircle size={20} />
                     Order {wovenCalculations.packsNeeded} Pack({wovenCalculations.totalBags} Bags) via WhatsApp
@@ -946,6 +955,7 @@ export default function HomeClient() {
                   <a
                     href="tel:+919968648541"
                     className={styles.wovenCallBtn}
+                    onClick={() => trackPhoneClick("Home Woven Bag Calculator")}
                   >
                     <Phone size={18} />
                     Call Direct: +91 99686 48541
@@ -1174,11 +1184,16 @@ export default function HomeClient() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className={styles.ctaWhatsappBtn}
+                    onClick={() => trackWhatsAppClick("Home CTA Banner")}
                   >
                     <MessageCircle size={20} />
                     Chat on WhatsApp
                   </a>
-                  <a href="tel:+919968648541" className={styles.ctaCallBtn}>
+                  <a
+                    href="tel:+919968648541"
+                    className={styles.ctaCallBtn}
+                    onClick={() => trackPhoneClick("Home CTA Banner")}
+                  >
                     <Phone size={20} />
                     Call Now
                   </a>
@@ -1271,6 +1286,7 @@ export default function HomeClient() {
                     <a
                       href="tel:+919968648541"
                       className={styles.contactPhoneBtn}
+                      onClick={() => trackPhoneClick(`Home Modal: ${enquiryProduct.name}`)}
                     >
                       <Phone size={16} /> Call: 99686 48541
                     </a>
@@ -1279,6 +1295,12 @@ export default function HomeClient() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className={styles.contactWhatsappBtn}
+                      onClick={() =>
+                        trackWhatsAppClick(`Home Modal: ${enquiryProduct.name}`, {
+                          product_id: enquiryProduct.id,
+                          value: enquiryProduct.price,
+                        })
+                      }
                     >
                       <MessageCircle size={16} /> WhatsApp Order
                     </a>

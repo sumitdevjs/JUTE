@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo, useEffect } from "react";
 import { Phone, MessageCircle, ShieldCheck, X } from "lucide-react";
+import { trackWhatsAppClick, trackPhoneClick, trackQuoteSubmission } from "@/lib/gtag";
 import styles from "./curing.module.css";
 
 interface SpecsType {
@@ -432,6 +433,13 @@ Please provide a bulk quote.`;
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.estimatorWhatsappBtn}
+                  onClick={() =>
+                    trackQuoteSubmission("Curing Sheet Estimator", {
+                      area_sqm: totalSlabArea,
+                      rolls_needed: rollsNeeded,
+                      estimated_cost: estimatedCost,
+                    })
+                  }
                 >
                   <MessageCircle size={18} /> Send Estimate Enquiry on WhatsApp
                 </a>
@@ -658,6 +666,7 @@ Please provide a bulk quote.`;
                   <a
                     href="tel:+919968648541"
                     className={styles.contactPhoneBtn}
+                    onClick={() => trackPhoneClick(`Curing Modal: ${selectedProduct.name}`)}
                   >
                     <Phone size={18} /> Call: +91 99686 48541
                   </a>
@@ -666,6 +675,12 @@ Please provide a bulk quote.`;
                     target="_blank"
                     rel="noopener noreferrer"
                     className={styles.contactWhatsappBtn}
+                    onClick={() =>
+                      trackWhatsAppClick(`Curing Modal: ${selectedProduct.name}`, {
+                        product_id: selectedProduct.id,
+                        value: selectedProduct.price,
+                      })
+                    }
                   >
                     <MessageCircle size={18} /> WhatsApp: +91 99686 48541
                   </a>

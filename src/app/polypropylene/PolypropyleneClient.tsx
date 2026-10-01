@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo, useEffect } from "react";
 import { Phone, MessageCircle, ShieldCheck, X } from "lucide-react";
+import { trackWhatsAppClick, trackPhoneClick } from "@/lib/gtag";
 import styles from "../curing/curing.module.css";
 
 interface SpecsType {
@@ -493,7 +494,11 @@ export default function PolypropyleneClient() {
                 </div>
 
                 <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginTop: "16px" }}>
-                  <a href="tel:+919968648541" className={styles.contactPhoneBtn}>
+                  <a
+                    href="tel:+919968648541"
+                    className={styles.contactPhoneBtn}
+                    onClick={() => trackPhoneClick(`PP Modal: ${selectedProduct.name}`)}
+                  >
                     <Phone size={18} /> Call: +91 99686 48541
                   </a>
                   <a
@@ -503,6 +508,12 @@ export default function PolypropyleneClient() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className={styles.contactWhatsappBtn}
+                    onClick={() =>
+                      trackWhatsAppClick(`PP Modal: ${selectedProduct.name}`, {
+                        product_id: selectedProduct.id,
+                        value: selectedProduct.price,
+                      })
+                    }
                   >
                     <MessageCircle size={18} /> WhatsApp: +91 99686 48541
                   </a>

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { CreditCard, CheckCircle2, ArrowLeft, ShieldCheck, QrCode, Truck } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import { trackPurchaseConversion, trackGoogleEvent } from "@/lib/gtag";
 import styles from "./checkout.module.css";
 
 export default function Checkout() {
@@ -70,6 +71,9 @@ export default function Checkout() {
     const newOrderId = `GF-${Math.floor(100000 + Math.random() * 900000)}`;
     setOrderId(newOrderId);
     setIsPlaced(true);
+
+    // Trigger official Google Ads Purchase Conversion tracking
+    trackPurchaseConversion(newOrderId, finalTotal, cart);
   };
 
   const handleFinish = () => {

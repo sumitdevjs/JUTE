@@ -22,11 +22,14 @@ const InstagramIcon: React.FC<{ size?: number }> = ({ size = 16 }) => (
   </svg>
 );
 
+import { trackWhatsAppClick, trackPhoneClick, trackQuoteSubmission } from "@/lib/gtag";
+
 const Footer: React.FC = () => {
   const [quickQuoteText, setQuickQuoteText] = useState("");
 
   const handleWhatsAppQuote = (e: React.FormEvent) => {
     e.preventDefault();
+    trackQuoteSubmission("Footer Bulk Quote Form", { inquiry: quickQuoteText.trim() });
     const message = quickQuoteText.trim()
       ? `Hi Ashok Enterprises, I have a custom inquiry: ${quickQuoteText.trim()}`
       : "Hi Ashok Enterprises, I would like to request a bulk wholesale price list.";
@@ -95,7 +98,11 @@ const Footer: React.FC = () => {
             </p>
 
             <div className={styles.contactList}>
-              <a href="tel:+919968648541" className={styles.contactItem}>
+              <a
+                href="tel:+919968648541"
+                className={styles.contactItem}
+                onClick={() => trackPhoneClick("Footer Contact List")}
+              >
                 <Phone size={16} />
                 <span>+91 99686 48541</span>
               </a>
@@ -105,6 +112,7 @@ const Footer: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.contactItemWhatsapp}
+                onClick={() => trackWhatsAppClick("Footer Chat Desk")}
               >
                 <MessageCircle size={16} />
                 <span>Chat on WhatsApp Desk</span>

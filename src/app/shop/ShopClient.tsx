@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from "react";
 import { Search, X, ArrowUpDown, Phone, MessageCircle, ShoppingBag, Briefcase, ShoppingBasket, Coffee, Gift, ChevronRight } from "lucide-react";
 import styles from "./shop.module.css";
+import { trackWhatsAppClick, trackPhoneClick } from "@/lib/gtag";
 
 import { PRODUCTS, type Product } from "../../data/products";
 
@@ -281,6 +282,7 @@ export default function ShopClient() {
                     <a
                       href="tel:+919968648541"
                       className={styles.contactPhoneBtn}
+                      onClick={() => trackPhoneClick(`Shop Modal: ${selectedProduct.name}`)}
                     >
                       <Phone size={16} /> Call: 99686 48541
                     </a>
@@ -289,6 +291,12 @@ export default function ShopClient() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className={styles.contactWhatsappBtn}
+                      onClick={() =>
+                        trackWhatsAppClick(`Shop Modal: ${selectedProduct.name}`, {
+                          value: selectedProduct.price,
+                          product_id: selectedProduct.id,
+                        })
+                      }
                     >
                       <MessageCircle size={16} /> WhatsApp Order
                     </a>
