@@ -12,22 +12,6 @@ export default function Checkout() {
   const [paymentMethod, setPaymentMethod] = useState<"card" | "upi" | "cod">("card");
   const [isPlaced, setIsPlaced] = useState(false);
   const [orderId, setOrderId] = useState("");
-  const [isLocal, setIsLocal] = useState<boolean | null>(null);
-
-  // Security check: Only allow localhost access, block live production users
-  React.useEffect(() => {
-    if (typeof window !== "undefined") {
-      const isLocalhost =
-        window.location.hostname === "localhost" ||
-        window.location.hostname === "127.0.0.1" ||
-        window.location.hostname.endsWith(".local");
-      setIsLocal(isLocalhost);
-      if (!isLocalhost) {
-        // Redirect to shop if someone accesses this on public production URL
-        window.location.replace("/shop");
-      }
-    }
-  }, []);
 
   const handleLoadSampleItems = () => {
     addToCart({
@@ -84,11 +68,6 @@ export default function Checkout() {
   // Pricing calculations
   const shipping = cartTotal > 1000 ? 0 : 150;
   const finalTotal = cartTotal + shipping;
-
-  // Block live public access
-  if (isLocal === false) {
-    return null;
-  }
 
   if (isPlaced) {
     return (
